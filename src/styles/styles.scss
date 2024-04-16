@@ -1,0 +1,135 @@
+
+//* Variables
+$fuente: "Roboto", sans-serif;
+$a: #6cc;
+$b: #fff;
+
+//*MIXIN
+// Se usa para no repetir código, porque se puede incluir donde queramos (ver body)
+@mixin contenedor() {
+    max-width: 1250px;
+    margin: auto auto;
+}
+
+@mixin flexbox($medidaJC: unset, $medidaAI: unset) {
+   //unset es la medida por defecto de ambos parametros si no trae nada
+   display: flex;
+   justify-content: $medidaJC;
+   align-items: $medidaAI;
+}
+
+@mixin laptopXL {
+    @media(max-width: 1200px) {
+        @content; // Esta línea indica dónde se insertará el contenido
+    }
+}
+
+
+//* Globales
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: $b;
+    font-family: $fuente;
+}
+
+body {
+    @include contenedor();
+    background: linear-gradient(11deg,
+        rgba(0,0,0,1) 44%,
+        rgba(51,100,102, 1) 89%);
+        height: 100vh;
+}
+
+a {
+   
+    text-decoration: none;
+    font-size: 25px;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+//Usamos funciones que recorren las etiquetas que le digamos para darles estilos
+@for $i from 0 through 3{
+    h#{$i + 1}{
+        font-size: 150px - ($i*40);
+    }
+}
+
+//* DISEÑOS
+header {
+    @include flexbox(space-between, center);
+    margin-top: 35px;
+    h4{
+       font-weight: 400; 
+    }
+    nav {
+        display: flex;
+        gap: 25px;
+        a:hover {
+            color:$a;
+        }
+    .redes {
+        a{
+            @include flexbox(unset, center );
+         
+        }
+        img {
+            width: 20px;
+        }
+    }
+    }
+}
+
+main {
+    @include flexbox(space-between, center);
+    
+        margin-top: 90px;
+        h3 {
+            font-weight: 400;
+        }
+        h4 {
+            width: 450px;
+        }
+        img {
+            width: 500px;
+            margin-right: 55px;
+            box-shadow: 0 .3rem .6rem rgba(0, 0, 0, 0.16), 0 .3rem .6rem rgba(0, 0, 0, 0.23);
+            border-radius: 50px;
+        }
+
+    
+}
+
+@include laptopXL() {
+    body{
+        text-align: center;
+        height: auto;
+    }
+    header {
+        flex-direction: column;
+        gap: 5px;
+
+        .redes a {
+            font-weight: 700;
+            margin: 15px 25px 0px 0px;
+
+        }
+        h4 {
+            margin-bottom: 10px;
+            font-size: 40px;
+        }
+    }
+    main {
+        margin-top: 70px;
+        flex-direction: column;
+    }
+}
